@@ -32,16 +32,22 @@ public class ReadFIle {
 			String word = "";
 			while (sc.hasNext()) {
 				word = sc.next();
-				if (word.length() > 3) {
-					word = word.toLowerCase();
-					if(word_dict.containsKey(word)) {
-						word_dict.put(word, word_dict.get(word) + 1);
+				boolean allLetters = word.chars().allMatch(Character::isLetter);
+				if (allLetters) {
+					if (word.length() > 3) {
+						word = word.toLowerCase();
+						if(word_dict.containsKey(word)) {
+							word_dict.put(word, word_dict.get(word) + 1);
+						} else {
+							word_dict.put(word, 1);
+						}
 					} else {
-						word_dict.put(word, 1);
+						continue;
 					}
 				} else {
 					continue;
 				}
+				
 			}
 			sc.close();
 			for (Map.Entry<String,Integer> entry : word_dict.entrySet())
